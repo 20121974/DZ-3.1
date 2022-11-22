@@ -1,12 +1,12 @@
 package com.skypro.employee.record;
 
 public class EmployeeRequest {
-    private String firstName;
+    private static String firstName;
     private String lastName;
     private int department;
     private int salary;
 
-    public String getFirstName() {
+    public static String getFirstName() {
         return firstName;
     }
 
