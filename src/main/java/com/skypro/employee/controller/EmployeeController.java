@@ -2,7 +2,7 @@ package com.skypro.employee.controller;
 
 import com.skypro.employee.model.Employee;
 import com.skypro.employee.record.EmployeeRequest;
-import com.skypro.employee.servis.EmployeeService;
+import com.skypro.employee.service.EmployeeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,40 +12,44 @@ import java.util.List;
 
 @RestController
 public class EmployeeController {
-    private final EmployeeService employeeService;//поле
-    private final EmployeeService employeeServise;
+    private final EmployeeService employeeServiсe;
 
-    public EmployeeController(EmployeeService employeeService, EmployeeService employeeService1) {
-        this.employeeService = employeeService1;
-        this.employeeServise = employeeService;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeServiсe = employeeService;
     }//конструктор
 
     @GetMapping("/employees")
     public Collection<Employee> getAllEmployees() {//получить всех сотрудников из базы сотрудников с использованием метода сервиса получить
-        return this.employeeServise.getAllEmployees();
+        return this.employeeServiсe.getAllEmployees();
     }
+
     @PostMapping("/employees")
     public Employee createEmployee(EmployeeRequest employeeRequest) {//добавить сотрудника в базу сотрудников с использованием метода сервиса добавить
-        return this.employeeServise.addEmployee(employeeRequest);
+        return this.employeeServiсe.addEmployee(employeeRequest);
     }
+
     @GetMapping("/employees/salary/sum")//получить сумму ЗП
     public int getSalarySum() {
-        return this.employeeServise.getSalarySum();
+        return this.employeeServiсe.getSalarySum();
     }
+
     @GetMapping("/employees/salary/MinSalary")//получить минимальную ЗП
-    public Object getMinSalary(Employee employee) {
-        return this.employeeServise.getMinSalary();
+    public Employee getMinSalary(Employee employee) {
+        return this.employeeServiсe.getMinSalary();
     }
+
     @GetMapping("/employees/salary/MaxSalary")//получить максимальную ЗП
-    public Object getMaxSalary(Employee employee) {
-        return this.employeeServise.getMaxSalary();
+    public Employee getMaxSalary(Employee employee) {
+        return this.employeeServiсe.getMaxSalary();
     }
+
     @GetMapping("/employees/salary/SalaryAverage")//получить среднюю ЗП
     public Object getSalaryAverage() {
-        return this.employeeServise.getSalaryAverage();
+        return this.employeeServiсe.getSalaryAverage();
     }
+
     @GetMapping("/employees/salary/high-salary")//получить сотрудников с ЗП выше средней
     public List<Employee> getTingAllEmployeesWhoseSalaryIsHigherThanTheAverageSalary() {
-        return this.employeeServise.getHighSalary();
+        return this.employeeServiсe.getHighSalary();
     }
 }

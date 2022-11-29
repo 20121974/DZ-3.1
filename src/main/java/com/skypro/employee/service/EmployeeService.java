@@ -1,4 +1,4 @@
-package com.skypro.employee.servis;
+package com.skypro.employee.service;
 
 import com.skypro.employee.model.Employee;
 import com.skypro.employee.record.EmployeeRequest;
@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public
-class EmployeeService {
-    private static final Map<Integer, Employee> employees = new HashMap<>();
+public class EmployeeService {
+    private final Map<Integer, Employee> employees = new HashMap<>();
+    private Comparator<Object> Comparators;
 
 
     public Collection<Employee> getAllEmployees() {
@@ -30,17 +30,31 @@ class EmployeeService {
     }
 
     public int getSalarySum() {
-        return employees.values().stream().mapToInt(Employee::getSalary).sum();//Получение суммы зарплат сотрудников
+        return employees.values().stream().mapToInt(Employee::getSalary).sum();
     }
 
-    public OptionalInt getMinSalary() {
-        return employees.values().stream().mapToInt(Employee::getSalary).min();//Получение минимальной зарплаты
+    public Employee getMinSalary() {
+        Employee result = null;
+        int minSalary = Integer.MIN_VALUE;
+        for (Employee employee : getAllEmployees())
+            if (employee.getSalary() < minSalary) {
+                minSalary = employee.getSalary();
+                result = employee;
+            }
+        return null;
     }
-    public OptionalInt getMaxSalary() {
-        return employees.values().stream().mapToInt(Employee::getSalary).max();//Получение максимальной зарплаты
+    public Employee getMaxSalary() {
+        Employee result = null;
+        int maxSalary = Integer.MAX_VALUE;
+        for (Employee employee : getAllEmployees())
+            if (employee.getSalary() > maxSalary) {
+                maxSalary = employee.getSalary();
+                result = employee;
+            }
+        return null;
     }
 
-    public static Object getSalaryAverage() {
+    public Object getSalaryAverage() {
         return employees.values().stream().mapToInt(Employee::getSalary).average();//средняя ЗП
     }
 
