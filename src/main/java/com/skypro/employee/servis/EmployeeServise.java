@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class EmployeeService {
+public class EmployeeServise {
     private final Map<Integer, Employee> employees = new HashMap<>();
 
 
@@ -40,13 +40,13 @@ public class EmployeeService {
         return employees.values().stream().mapToInt(Employee::getSalary).max();//Получение сотрудника с максимальной зарплатой
     }
 
-    public OptionalDouble getSalaryAverage() {
+    public Object getSalaryAverage() {
         return employees.values().stream().mapToInt(Employee::getSalary).average();//средняя ЗП
     }
 
-    public OptionalDouble getHighSalary() {
-        return employees.values().stream().mapToInt(Employee::getSalary).filter(e -> e.employeeRequest.getSalary() >
-                getSalaryAverage()).collect(Collectors.toList());
+    public List<Employee> getHighSalary() {
+        double average = (double) getSalaryAverage();
+        return (List<Employee>) employees.values().stream().filter(e -> e.getSalary() > average);
     }
 
 }
