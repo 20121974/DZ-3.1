@@ -32,7 +32,6 @@ public class EmployeeServise {
     public int getSalarySum() {
         return employees.values().stream().mapToInt(Employee::getSalary).sum();//Получение суммы зарплат сотрудников
     }
-
     public OptionalInt getMinSalary() {
         return employees.values().stream().mapToInt(Employee::getSalary).min();//Получение сотрудника с минимальной зарплатой
     }
