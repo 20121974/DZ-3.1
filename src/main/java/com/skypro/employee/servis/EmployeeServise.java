@@ -17,7 +17,7 @@ public class EmployeeServise {
     }//получить всех сотрудников
 
     public Employee addEmployee(EmployeeRequest employeeRequest) {//добавление сотрудника
-        if (employeeRequest.getFirstName() == null || employeeRequest.getLastName() == null){
+        if (employeeRequest.getFirstName() == null || employeeRequest.getLastName() == null) {
             throw new IllegalArgumentException("Employee name should be set");
         }
         Employee employee = new Employee(employeeRequest.getFirstName(),
@@ -32,9 +32,11 @@ public class EmployeeServise {
     public int getSalarySum() {
         return employees.values().stream().mapToInt(Employee::getSalary).sum();//Получение суммы зарплат сотрудников
     }
+
     public OptionalInt getMinSalary() {
         return employees.values().stream().mapToInt(Employee::getSalary).min();//Получение сотрудника с минимальной зарплатой
     }
+
     public OptionalInt getMaxSalary() {
         return employees.values().stream().mapToInt(Employee::getSalary).max();//Получение сотрудника с максимальной зарплатой
     }
@@ -42,6 +44,7 @@ public class EmployeeServise {
     public Object getSalaryAverage() {
         return employees.values().stream().mapToInt(Employee::getSalary).average();//средняя ЗП
     }
+
     public List<Employee> getHighSalary() {
         double average = (double) getSalaryAverage();
         return (List<Employee>) employees.values().stream().filter(e -> e.getSalary() > average);
