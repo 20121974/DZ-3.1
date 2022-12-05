@@ -42,7 +42,6 @@ public class EmployeeServise {
     public Object getSalaryAverage() {
         return employees.values().stream().mapToInt(Employee::getSalary).average();//средняя ЗП
     }
-
     public List<Employee> getHighSalary() {
         double average = (double) getSalaryAverage();
         return (List<Employee>) employees.values().stream().filter(e -> e.getSalary() > average);
