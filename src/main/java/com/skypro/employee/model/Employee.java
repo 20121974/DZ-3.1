@@ -3,7 +3,7 @@ package com.skypro.employee.model;
 import java.util.Collection;
 
 public class Employee {
-    private static int counter;
+    private int counter;
     private final int id;
     private final String firstName;
     private final String lastName;

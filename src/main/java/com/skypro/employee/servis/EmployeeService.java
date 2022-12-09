@@ -5,7 +5,6 @@ import com.skypro.employee.record.EmployeeRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -17,7 +16,7 @@ public class EmployeeService {
     }//получить всех сотрудников
 
     public Employee addEmployee(EmployeeRequest employeeRequest) {//добавление сотрудника
-        if (employeeRequest.getFirstName() == null || employeeRequest.getLastName() == null){
+        if (employeeRequest.getFirstName() == null || employeeRequest.getLastName() == null) {
             throw new IllegalArgumentException("Employee name should be set");
         }
         Employee employee = new Employee(employeeRequest.getFirstName(),
@@ -33,20 +32,35 @@ public class EmployeeService {
         return employees.values().stream().mapToInt(Employee::getSalary).sum();//Получение суммы зарплат сотрудников
     }
 
-    public OptionalInt getMinSalary() {
-        return employees.values().stream().mapToInt(Employee::getSalary).min();//Получение сотрудника с минимальной зарплатой
-    }
-    public OptionalInt getMaxSalary() {
-        return employees.values().stream().mapToInt(Employee::getSalary).max();//Получение сотрудника с максимальной зарплатой
+    public Employee getMinSalary() {//Получение сотрудника с минимальной зарплатой
+        Employee result = null;
+        int minSalary = Integer.MAX_VALUE;
+        for (Employee employee : getAllEmployees())
+            if (employee.getSalary() < minSalary) {
+                minSalary = employee.getSalary();
+                result = employee;
+            }
+        return result;
     }
 
-    public OptionalDouble getSalaryAverage() {
+    public Employee getMaxSalary() {
+        Employee result = null;
+        int maxSalary = Integer.MIN_VALUE;
+        for (Employee employee : getAllEmployees())
+            if (employee.getSalary() > maxSalary) {
+                maxSalary = employee.getSalary();
+                result = employee;
+            }
+        return result;
+    }
+
+    public Object getSalaryAverage() {
         return employees.values().stream().mapToInt(Employee::getSalary).average();//средняя ЗП
     }
 
-    public OptionalDouble getHighSalary() {
-        return employees.values().stream().mapToInt(Employee::getSalary).filter(e -> e.employeeRequest.getSalary() >
-                getSalaryAverage()).collect(Collectors.toList());
+    public List<Employee> getHighSalary() {
+        double average = (double) getSalaryAverage();
+        return (List<Employee>) employees.values().stream().filter(e -> e.getSalary() > average);
     }
 
 }
