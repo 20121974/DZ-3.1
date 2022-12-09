@@ -5,10 +5,9 @@ import com.skypro.employee.record.EmployeeRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
-public class EmployeeServise {
+public class EmployeeService {
     private final Map<Integer, Employee> employees = new HashMap<>();
 
 
@@ -33,12 +32,26 @@ public class EmployeeServise {
         return employees.values().stream().mapToInt(Employee::getSalary).sum();//Получение суммы зарплат сотрудников
     }
 
-    public OptionalInt getMinSalary() {
-        return employees.values().stream().mapToInt(Employee::getSalary).min();//Получение сотрудника с минимальной зарплатой
+    public Employee getMinSalary() {//Получение сотрудника с минимальной зарплатой
+        Employee result = null;
+        int minSalary = Integer.MAX_VALUE;
+        for (Employee employee : getAllEmployees())
+            if (employee.getSalary() < minSalary) {
+                minSalary = employee.getSalary();
+                result = employee;
+            }
+        return result;
     }
 
-    public OptionalInt getMaxSalary() {
-        return employees.values().stream().mapToInt(Employee::getSalary).max();//Получение сотрудника с максимальной зарплатой
+    public Employee getMaxSalary() {
+        Employee result = null;
+        int maxSalary = Integer.MIN_VALUE;
+        for (Employee employee : getAllEmployees())
+            if (employee.getSalary() > maxSalary) {
+                maxSalary = employee.getSalary();
+                result = employee;
+            }
+        return result;
     }
 
     public Object getSalaryAverage() {

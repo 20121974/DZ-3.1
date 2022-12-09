@@ -8,7 +8,7 @@ Content-Type: application/json
 {
   "firstName": "Test",
   "lastName": "Test",
-  "departament": 1,
+  "department": 1,
   "salary": 1000
 }
 
@@ -27,10 +27,10 @@ Content-Type: application/json
 GET http://localhost:8080/employees/salary/sum
 
 ### Получение сотрудника с минимальной зарплатой
-GET http://localhost:8080/employee/salary/min
+GET http://localhost:8080/employees/salary/MinSalary
 
 ### Получение сотрудника с максимальной зарплатой
-GET http://localhost:8080/employee/salary/max
+GET http://localhost:8080/employees/salary/MaxSalary
 
 ### Получение всех сотрудников, зарплата которых больше средней зарплаты
-GET http://localhost:8080/employee/high-salary
+GET http://localhost:8080/employees/salary/high-salary
